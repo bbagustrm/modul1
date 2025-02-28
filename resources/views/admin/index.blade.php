@@ -2,7 +2,7 @@
 @section('content')
     <h4 class="mt-5">Data Admin</h4>
     <a href="{{ route('admin.create') }}" type="button" class="btn btn-success rounded-3">Tambah Data</a>
-    <a href="{{ route('trash') }}" type="button" class="btn btn-warning rounded-3">Trash</a>
+    <a href="{{ route('trash.index') }}" type="button" class="btn btn-warning rounded-3">Trash</a>
     @if ($message = Session::get('success'))
         <div class="alert alert-success mt-3" role="alert">
             {{ $message }}
@@ -47,7 +47,7 @@
                                     <form method="POST" action="{{ route('admin.delete', $data->id_admin) }}">
                                         @csrf
                                         <div class="modal-body">
-                                            Apakah Anda yakin ingin menghapus data ini?
+                                            Apakah Anda yakin ingin memindahkan ke Sampah?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"

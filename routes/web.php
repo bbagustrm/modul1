@@ -12,6 +12,7 @@ Route::post('update/{id}', [AdminController::class,'update'])->name('admin.updat
 Route::post('delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
 
 
-Route::get('trash', [TrashController::class, 'index'])->name('trash');
-Route::post('trash-undo', [TrashController::class, 'undo'])->name('trash.undo');
+Route::get('trash', [TrashController::class, 'index'])->name('trash.index');
+Route::post('trash-undo/{id}', [TrashController::class, 'undo'])->name('trash.undo');
+Route::post('trash-undo-all', [TrashController::class, 'undoall'])->name('trash.undoall');
 Route::post('trash/{id}', [TrashController::class, 'delete'])->name('trash.delete');

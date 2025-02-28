@@ -15,7 +15,8 @@ class Admin extends Model {
         'nama_admin',
         'alamat',
         'username',
-        'password'
+        'password',
+        'isTrash'
     ];
 
     public $timestamps = false;

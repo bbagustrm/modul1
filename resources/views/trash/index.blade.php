@@ -1,9 +1,38 @@
-
 @extends('admin.layout')
 @section('content')
     <h4 class="mt-5">Data Admin</h4>
     <a href="{{ route('admin.index') }}" type="button" class="btn btn-success rounded-3">Back</a>
-    <a href="{{ route('trash.undo') }}" type="button" class="btn btn-warning rounded-3">Undo All Data</a>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#undoAllModal">
+        Undo All
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="undoAllModal" tabindex="-1"
+        aria-labelledby="undoAllModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"> <!-- class diperbaiki -->
+                <div class="modal-header"> <!-- class diperbaiki -->
+                    <h5 class="modal-title" id="undoAllModalLabel">Konfirmasi</h5>
+                    <!-- class diperbaiki -->
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button> <!-- class diperbaiki -->
+                </div>
+                <form method="POST" action="{{ route('trash.undoall') }}">
+                    @csrf
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin mengembalikan semua data?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Tutup</button> <!-- class diperbaiki -->
+                        <button type="submit" class="btn btn-danger">Ya</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     @if ($message = Session::get('success'))
         <div class="alert alert-success mt-3" role="alert">
             {{ $message }}
@@ -28,15 +57,42 @@
                     <td>{{ $data->username }}</td>
                     <td>
                         <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                            data-bs-target="#undoModal{{ $data->id_admin }}">
+                            Undo
+                        </button>
+
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#hapusModal{{ $data->id_admin }}">
                             Hapus
                         </button>
 
-                        <a href="{{ route('trash.undo', $data->id_admin) }}" type="button"
-                            class="btn btn-warning rounded-3">Undo</a>
-
                         <!-- Modal -->
+                        <div class="modal fade" id="undoModal{{ $data->id_admin }}" tabindex="-1"
+                            aria-labelledby="undoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content"> <!-- class diperbaiki -->
+                                    <div class="modal-header"> <!-- class diperbaiki -->
+                                        <h5 class="modal-title" id="undoModalLabel">Konfirmasi</h5>
+                                        <!-- class diperbaiki -->
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button> <!-- class diperbaiki -->
+                                    </div>
+                                    <form method="POST" action="{{ route('trash.undo', $data->id_admin) }}">
+                                        @csrf
+                                        <div class="modal-body">
+                                            Apakah Anda yakin ingin mengembalikan data ini?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Tutup</button> <!-- class diperbaiki -->
+                                            <button type="submit" class="btn btn-danger">Ya</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="modal fade" id="hapusModal{{ $data->id_admin }}" tabindex="-1"
                             aria-labelledby="hapusModalLabel" aria-hidden="true">
                             <div class="modal-dialog">

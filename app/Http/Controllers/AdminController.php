@@ -11,7 +11,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $datas = Admin::all(); // Mengambil semua data dari tabel admins
+        $datas = Admin::where('isTrash', false)->get();
         return view('admin.index', compact('datas'));
     }
 
@@ -93,9 +93,9 @@ class AdminController extends Controller
     public function delete($id)
     {
         $admin = Admin::findOrFail($id);
-        $admin->delete();
+        $admin->update(['isTrash' => true]);
 
-        return redirect()->route('admin.index')->with('success', 'Data Admin berhasil dihapus');
+        return redirect()->route('admin.index')->with('success', 'Data Admin berhasil dimasukkan ke sampah');
     }
 
 

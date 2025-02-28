@@ -6,23 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
-    {
+    public function up() {
         Schema::table('admins', function (Blueprint $table) {
-            $table->softDeletes(); // Menambahkan kolom deleted_at
+            $table->boolean('isTrash')->default(false)->after('password');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
+    public function down() {
         Schema::table('admins', function (Blueprint $table) {
-            //
+            $table->dropColumn('isTrash');
         });
     }
 };
